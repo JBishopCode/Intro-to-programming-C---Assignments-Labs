@@ -2,6 +2,9 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <stdexcept>
+
+using namespace std;
 
 
 // Should return true if the indices i, j and k correspond to the 
@@ -93,19 +96,11 @@ void ReadBoard(ThreeDBingoBoard& board)
 // on the 3D Bingo board and false otherwise
 bool BoardNumbersValid(const ThreeDBingoBoard board)
 {
-	// Keep track of used numbers to check for duplicates
-	// each level
-	// each row
-	// each column
-	//check if center square (and if number is 0)
-	//check valid range for each column(k)
-	//check for duplicates
-	//true if all checks passed
-	
-	vector<bool> used(76, false); 
-	
+	// Check each level separately for duplicates
 	for (int i = 0; i < BOARD_DIM; i++)
 	{
+		vector<bool> used(76, false); // Reset for each level
+		
 		for (int j = 0; j < BOARD_DIM; j++) 
 		{
 			for (int k = 0; k < BOARD_DIM; k++)
@@ -125,7 +120,7 @@ bool BoardNumbersValid(const ThreeDBingoBoard board)
 				if (k == 4 && (number < 61 || number > 75)) return false;
 
 				if (number < 1 || number > 75) return false;
-				if (used[number]) return false;
+				if (used[number]) return false; // Duplicate within this level
 				used[number] = true;
 			}
 		}
@@ -277,7 +272,7 @@ int main()
 			throw runtime_error("Invalid board input!");
 		} 
 	}
-	catch (exception e)
+	catch (exception& e)
 	{
 		cout << "Exiting program - Exception: " << e.what() << endl;
 		exit(1);
