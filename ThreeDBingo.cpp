@@ -113,6 +113,7 @@ bool BoardNumbersValid(const ThreeDBingoBoard board)
 					continue;
 				}
 
+				// Check valid range for each column
 				if (k == 0 && (number < 1 || number > 15)) return false;
 				if (k == 1 && (number < 16 || number > 30)) return false;
 				if (k == 2 && (number < 31 || number > 45)) return false;
@@ -127,7 +128,6 @@ bool BoardNumbersValid(const ThreeDBingoBoard board)
 	}
 
 	return true;
-
 }
 
 bool IsWinningBoard(const ThreeDBingoBoard board)
