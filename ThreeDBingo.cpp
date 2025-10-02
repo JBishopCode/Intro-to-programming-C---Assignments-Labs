@@ -115,6 +115,7 @@ bool BoardNumbersValid(const ThreeDBingoBoard board)
 				if (CentreSquare(i,j,k))
 				{
 					if (number != 0) return false;
+					continue;
 				}
 
 				if (k == 0 && (number < 1 || number > 15)) return false;
