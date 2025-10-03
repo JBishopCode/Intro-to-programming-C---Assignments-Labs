@@ -11,7 +11,7 @@ using namespace std;
 // centre square and false otherwise.
 bool CentreSquare(int i, int j, int k)
 {
-	if(j == 2 && k == 2){
+	if(i == 2 && j == 2 && k == 2){
 		return true;
 	}
 	else{
