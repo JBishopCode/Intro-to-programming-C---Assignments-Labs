@@ -11,12 +11,7 @@ using namespace std;
 // centre square and false otherwise.
 bool CentreSquare(int i, int j, int k)
 {
-	if(i == 2 && j == 2 && k == 2){
-		return true;
-	}
-	else{
-		return false;
-	}
+	return (i == 2 && j == 2 && k == 2);
 }
 
 void AllocateBoard(vector<vector<vector<ThreeDBingoSquare>>>& board)
@@ -96,35 +91,27 @@ void ReadBoard(ThreeDBingoBoard& board)
 // on the 3D Bingo board and false otherwise
 bool BoardNumbersValid(const ThreeDBingoBoard board)
 {
-	vector<bool> used_global(76, false); 
-
-	if (board[2][2][2].number != 0) return false; // make sure the very center is 0
-
-	// Check each level separately for duplicates
 	for (int i = 0; i < BOARD_DIM; i++)
 	{
-		for (int j = 0; j < BOARD_DIM; j++) 
+		for (int j = 0; j < BOARD_DIM; j++)
 		{
 			for (int k = 0; k < BOARD_DIM; k++)
 			{
-				if (i == 2 && j == 2 && k == 2) continue; // using continue will skip to next iteration
-
 				int number = board[i][j][k].number;
 
+				if (CentreSquare(i, j, k))
+				{
+					if (number != 0) return false;
+					continue;
+				}
 
-				if (number < 1 || number > 75) return false; // numbers must be from 1-75
+				if (number < 1 || number > 75) return false;
 
-
-				// Check valid range for each column
-				if (j == 0 && (number < 1 || number > 15)) return false;
-				if (j == 1 && (number < 16 || number > 30)) return false;
-				if (j == 2 && (number < 31 || number > 45)) return false;
-				if (j == 3 && (number < 46 || number > 60)) return false;
-				if (j == 4 && (number < 61 || number > 75)) return false;
-
-
-				if (used_global[number]) return false;
-				used_global[number] = true;
+				if (k == 0 && (number < 1 || number > 15)) return false;
+				if (k == 1 && (number < 16 || number > 30)) return false;
+				if (k == 2 && (number < 31 || number > 45)) return false;
+				if (k == 3 && (number < 46 || number > 60)) return false;
+				if (k == 4 && (number < 61 || number > 75)) return false;
 			}
 		}
 	}
