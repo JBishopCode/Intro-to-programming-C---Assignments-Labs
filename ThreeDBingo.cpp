@@ -96,22 +96,26 @@ void ReadBoard(ThreeDBingoBoard& board)
 // on the 3D Bingo board and false otherwise
 bool BoardNumbersValid(const ThreeDBingoBoard board)
 {
+	vector<bool> used_global(76, false); 
+
+	if (board[2][2][2].number != 0) return false; // make sure the very center is 0
+
 	// Check each level separately for duplicates
 	for (int i = 0; i < BOARD_DIM; i++)
 	{
-		vector<bool> used(76, false); // Reset for each level
-		
+		vector<bool> used_level(76, false); 
+
+
 		for (int j = 0; j < BOARD_DIM; j++) 
 		{
 			for (int k = 0; k < BOARD_DIM; k++)
 			{
+				if (i == 2 && j == 2 && k == 2) continue; // using continue will skip to next iteration
+
 				int number = board[i][j][k].number;
 
-				if (CentreSquare(i,j,k))
-				{
-					if (number != 0) return false;
-					continue;
-				}
+				if (number < 1 || number > 75) return false; // numbers must be from 1-75
+
 
 				// Check valid range for each column
 				if (k == 0 && (number < 1 || number > 15)) return false;
@@ -120,9 +124,12 @@ bool BoardNumbersValid(const ThreeDBingoBoard board)
 				if (k == 3 && (number < 46 || number > 60)) return false;
 				if (k == 4 && (number < 61 || number > 75)) return false;
 
-				if (number < 1 || number > 75) return false;
-				if (used[number]) return false; // Duplicate within this level
-				used[number] = true;
+				
+				if (used_level[number]) return false; // Duplicate within this level
+				used_level[number] = true;
+
+				if (used_global[number]) return false;
+				used_global[number] = true;
 			}
 		}
 	}
