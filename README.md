@@ -4,4 +4,4 @@ The user is asked to pick a number between 1 - 1000. From there the program will
 
 To run the code, you have to use the guess.exe file followed by your number. 
 
-For example, "guess.exe 473"
+For example, ".\guess.exe 473"
