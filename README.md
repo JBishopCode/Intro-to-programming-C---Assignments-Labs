@@ -5,6 +5,7 @@ The program reads a 3D board of 125 numbers (five 5x5 layers). Only the exact mi
 
 Then the program reads called numbers, marks matches, shows the board after each call, and stops when theres a winning line. 
 
-To run the code, use the  THreeDBingo.exe file and provide the input(board + called numbers)
+To run the code, use the  ThreeDBingo.exe file and provide the input(board + called numbers)
 
 For example, "board.txt | .\ThreeDBingo.exe"
+
